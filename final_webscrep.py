@@ -17,7 +17,7 @@ driver = webdriver.Chrome(PATH)
 driver.get("https://www.immoweb.be/en")
 
 
-##clicking home search button (front page)
+##clicking home search button (front page--buy)
 
 home_button = WebDriverWait(driver, 20).until(
     EC.presence_of_element_located((By.ID, "searchBoxSubmitButton"))
