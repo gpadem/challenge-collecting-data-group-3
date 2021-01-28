@@ -1,4 +1,4 @@
-import bs4
+from bs4 import BeautifulSoup
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -8,6 +8,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+import re
+import lxml.html
+import time
 
 # codes to ignore handshake errors
 options = webdriver.ChromeOptions()
@@ -19,32 +22,15 @@ driver = webdriver.Chrome(chrome_options=options)
 driver = webdriver.Chrome()  # open driver
 driver.get("https://www.immoweb.be/en")  # go to url
 # locate search button
-search_button = WebDriverWait(driver, 20).until(
+search_button = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.ID, "searchBoxSubmitButton"))
 )
 # click on search button
 driver.execute_script("arguments[0].click();", search_button)
 
 
-# locate sort button
-sort_button = WebDriverWait(driver, 10).until(
-    EC.presence_of_element_located((By.CLASS_NAME, "input--select__toggle-icon"))
-)
-# click on locate button
-driver.execute_script("arguments[0].click();", sort_button)
-
-# advanced search
-
-driver = webdriver.Chrome()  # open driver
-driver.get("https://www.immoweb.be/en")  # go to url
-# locate search button
-advanced_search_button = WebDriverWait(driver, 20).until(
-    EC.presence_of_element_located(
-        (
-            By.XPATH,
-            ('//*[@id="homepage-app"]/div[2]/div/div[1]/form/div[3]/div[3]/a/span'),
-        )
-    )
-)
-# click on search button
-advanced_search_button.click()
+url_immo_web = driver.current_url
+request_immo_web = requests.get(url_immo_web)
+print(url_immo_web, request_immo_web.status_code)
+soup_immo_web = BeautifulSoup(request_immo_web.content, "lxml")
+print(soup_immo_web)
