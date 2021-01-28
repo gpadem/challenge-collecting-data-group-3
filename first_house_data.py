@@ -46,20 +46,8 @@ house_button = WebDriverWait(driver, 15).until(
 )
 house_button.click()
 
+house_price = driver.find_element_by_xpath(
+    "//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]"
+)
 
-# get the html of the page
-request_immo_web = requests.get(current_url_immo_web, headers=headers)
-print(current_url_immo_web, request_immo_web.status_code)
-soup_immo_web = BeautifulSoup(request_immo_web.content, "lxml")
-print(soup_immo_web.prettify())
-
-
-"""
-would work if it was all html, so maybe on a different website
-"""
-# # get the link of each house
-# link_house = soup_immo_web.find_all("a", class_="card__title-link")
-# link_house_v1 = [str(x) for x in link_house]
-# pattern = 'href="(.*)">'
-# link_house_v2 = [re.search(pattern, x).group(1) for x in link_house_v1]
-# print(link_house_v2)
+print(house_price.text)
