@@ -29,3 +29,24 @@ driver.execute_script("arguments[0].click();", sort_button)
 
 
 # return the new page
+url_immo_web = driver.current_url
+# get the html of the page
+request_immo_web = requests.get(url_immo_web)
+print(url_immo_web, request_immo_web.status_code)
+soup_immo_web = BeautifulSoup(request_immo_web.content, "lxml")
+# get the id of each house
+house_id = soup_immo_web.find_all
+
+
+# house button
+house_button = WebDriverWait(driver, 15).until(
+    EC.presence_of_element_located((By.ID, "classified_9139582"))
+)
+house_button.click()
+
+# return the new page
+current_url_immo_web = driver.current_url
+# get the html of the page
+request_immo_web = requests.get(url_immo_web)
+print(current_url_immo_web, request_immo_web.status_code)
+soup_immo_web = BeautifulSoup(request_immo_web.content, "lxml")
