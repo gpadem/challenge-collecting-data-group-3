@@ -26,7 +26,31 @@ home_button = WebDriverWait(driver, 20).until(
 )
 driver.execute_script("arguments[0].click();", home_button)
 
-"""get url of page 1 
+
+house_buttons = driver.find_elements_by_xpath("//*[starts-with(@id, 'classified_')]")
+for house in house_buttons:
+    driver.execute_script("arguments[0].click();", house)
+
+    html = driver.page_source 
+      
+    # this renders the JS code and stores all 
+    # of the information in static HTML code. 
+      
+    # Now, we could simply apply bs4 to html variable 
+    soup = BeautifulSoup(html, "html.parser") 
+    house_price = driver.find_element_by_xpath(       
+        "//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]")
+    print(house_price.text)
+    
+    
+ 
+    
+ 
+    
+ 
+    
+    
+    """get url of page 1 
 html = driver.page_source 
 soup = BeautifulSoup(html, "html.parser") 
 all_houses = soup
@@ -43,18 +67,15 @@ for link in links_html:
 property_button = WebDriverWait(driver, 20).until(
     EC.presence_of_element_located((By.CLASS_NAME, "card__title-link"))
 )"""
-house_buttons = driver.find_elements_by_xpath("//*[starts-with(@id, 'classified_')]")
-for house in house_buttons:
-    driver.execute_script("arguments[0].click();", house)
-
-    html = driver.page_source 
-      
-    # this renders the JS code and stores all 
-    # of the information in static HTML code. 
-      
-    # Now, we could simply apply bs4 to html variable 
-    soup = BeautifulSoup(html, "html.parser") 
-    print(soup)
+    
+    
+    
+    
+    """elem = soup.find_all('p', class_='classified__price')
+    bleh=elem.text
+    print(bleh)"""
+        
+        
     for i in range(10):
         print('===================================')
     
