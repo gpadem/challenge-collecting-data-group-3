@@ -47,23 +47,47 @@ driver.execute_script("arguments[0].click();", search_button)
 
 house_buttons = driver.find_elements_by_xpath("//*[starts-with(@id, 'classified_')]")
 
+house_price_list = []
+for house_button in house_buttons:
+    house_button.click()
+    house_price = house_price = driver.find_element_by_xpath(
+        "//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]"
+    )
+    house_price_list.append(house_price.text)
+    print(house_price_list)
+    driver.back()
+
+
+# house_buttons[0].click()
+
 # house_price_list = []
 
-for house in house_buttons:
-    driver.execute_script("arguments[0].click();", house)
+# house_price = driver.find_element_by_xpath(
+#     "//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]"
+# )
 
-    html_house = driver.page_source
+# house_price_list.append(house_price.text)
 
-    soup_house = BeautifulSoup(html_house, "html.parser")
-    # print(soup_house)
+# driver.back()
 
-    print(soup_house.prettify())
+# house_buttons[1].click()
 
-    for i in soup_house.find_all("span", aria_hidden_="true"):
-        print(i.text)
 
-    # for i in range(10):
-    #      print("===================================")
+# for house in house_buttons:
+#     driver.execute_script("arguments[0].click();", house)
+
+#     html_house = driver.page_source
+
+#     soup_house = BeautifulSoup(html_house, "html.parser")
+#     # print(soup_house)
+
+#     print(soup_house.prettify())
+
+#     for i in soup_house.find_all("span", aria_hidden_="true"):
+#         print(i.text)
+
+# for i in range(10):
+#      print("===================================")
 
 
 #     house_price = WebDriverWait(driver, 20).until(
