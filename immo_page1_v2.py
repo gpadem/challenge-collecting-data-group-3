@@ -38,11 +38,11 @@ for house in house_buttons:
       
     # Now, we could simply apply bs4 to html variable 
     soup = BeautifulSoup(html, "html.parser") 
-    house_price = driver.find_element_by_xpath(       
-        "//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]")
-    print(house_price.text)
+    print(soup.prettify())
+    #house_price = driver.find_element_by_xpath("//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]")
+    #print(house_price.text)
     
-    
+  
  
     
  
