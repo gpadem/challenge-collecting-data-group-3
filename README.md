@@ -8,9 +8,11 @@ This is a collaborative challenge we worked on together during our training at B
 The objective of this challenge is to create a csv file format with the data scraped from a real estate site.
 
 With the use of BeautifulSoup and Selenium we have navigated through immoweb.be/en.
-We scraped data from several individual houses.
-The project is not yet finished. We still have to complete  
+We scraped data from several individual houses.  
+The project is not yet finished.  
+The following should still be completed:  
 -The automation of data scraping of 10000 individual properties  
+-Sorting data to individual data categories  
 -Put these into a csv file  
 
 We used  
