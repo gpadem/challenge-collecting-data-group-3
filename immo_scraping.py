@@ -13,15 +13,15 @@ import lxml.html
 import time
 from fake_useragent import UserAgent
 
-# codes to ignore handshake errors
-options = webdriver.ChromeOptions()
-options.add_argument("--ignore-certificate-errors")
-options.add_argument("--ignore-ssl-errors")
-driver = webdriver.Chrome(chrome_options=options)
+# # codes to ignore handshake errors
+# options = webdriver.ChromeOptions()
+# options.add_argument("--ignore-certificate-errors")
+# options.add_argument("--ignore-ssl-errors")
+# driver = webdriver.Chrome(chrome_options=options)
 
 # add a header to not get kicked out
-user_agent = UserAgent()
-headers = {"User-Agent": str(user_agent.chrome)}
+# user_agent = UserAgent()
+# headers = {"User-Agent": str(user_agent.chrome)}
 
 # open driver
 driver = webdriver.Chrome()
@@ -37,21 +37,22 @@ search_button = WebDriverWait(driver, 15).until(
 # click on search button
 search_button.click()
 
-# return the new page
-current_url_immo_web = driver.current_url
+# # return the new page
+# current_url_immo_web = driver.current_url
 
 # house button
-house_button = WebDriverWait(driver, 15).until(
+house_button = WebDriverWait(driver, 13).until(
     EC.presence_of_element_located((By.ID, "classified_9139582"))
 )
 house_button.click()
 
+driver.back()
 
 # get the html of the page
-request_immo_web = requests.get(current_url_immo_web, headers=headers)
-print(current_url_immo_web, request_immo_web.status_code)
-soup_immo_web = BeautifulSoup(request_immo_web.content, "lxml")
-print(soup_immo_web.prettify())
+# request_immo_web = requests.get(current_url_immo_web, headers=headers)
+# print(current_url_immo_web, request_immo_web.status_code)
+# soup_immo_web = BeautifulSoup(request_immo_web.content, "lxml")
+# print(soup_immo_web.prettify())
 
 
 """

@@ -13,15 +13,6 @@ import lxml.html
 import time
 from fake_useragent import UserAgent
 
-# codes to ignore handshake errors
-options = webdriver.ChromeOptions()
-options.add_argument("--ignore-certificate-errors")
-options.add_argument("--ignore-ssl-errors")
-driver = webdriver.Chrome(chrome_options=options)
-
-# add a header to not get kicked out
-user_agent = UserAgent()
-headers = {"User-Agent": str(user_agent.chrome)}
 
 # open driver
 driver = webdriver.Chrome()
@@ -37,17 +28,21 @@ search_button = WebDriverWait(driver, 15).until(
 # click on search button
 search_button.click()
 
-# return the new page
-current_url_immo_web = driver.current_url
+# search results per page
+search_results = driver.find_elements_by_xpath("//*[@id='main-content']")[0].text
+print(search_results)
+# search_results_list = []
+# for i in range(len(search_results)):
+#     search_results_list.append(i)
 
-# house button
-house_button = WebDriverWait(driver, 15).until(
-    EC.presence_of_element_located((By.XPATH, "classified_9139582"))
-)
-house_button.click()
+# print(search_results_list)
 
-house_price = driver.find_element_by_xpath(
-    "//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]"
-)
 
-print(house_price.text)
+# # # return the new page
+# # current_url_immo_web = driver.current_url
+
+# # house button
+# house_button = WebDriverWait(driver, 13).until(
+#     EC.presence_of_element_located((By.ID, "classified_9139582"))
+# )
+# house_button.click()
