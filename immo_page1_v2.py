@@ -29,70 +29,30 @@ driver.execute_script("arguments[0].click();", home_button)
 
 house_buttons = driver.find_elements_by_xpath("//*[starts-with(@id, 'classified_')]")
 for house in house_buttons:
+    print(house)
     driver.execute_script("arguments[0].click();", house)
-
+    
     html = driver.page_source 
-      
-    # this renders the JS code and stores all 
-    # of the information in static HTML code. 
-      
-    # Now, we could simply apply bs4 to html variable 
+          
+        # this renders the JS code and stores all 
+        # of the information in static HTML code. 
+          
+        # Now, we could simply apply bs4 to html variable 
     soup = BeautifulSoup(html, "html.parser") 
-    print(soup.prettify())
-    #house_price = driver.find_element_by_xpath("//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]")
-    #print(house_price.text)
-    
-  
- 
-    
- 
-    
- 
-    
-    
-    """get url of page 1 
-html = driver.page_source 
-soup = BeautifulSoup(html, "html.parser") 
-all_houses = soup
-
-#searhing for all houses page 1
-links_html = soup.find_all('a', class_='card__title-link')
-for link in links_html:
-    driver.get(link)  
-    soup = BeautifulSoup(html, "html.parser") 
-    print(soup)
-
-##clicking property search button (front page)
-
-property_button = WebDriverWait(driver, 20).until(
-    EC.presence_of_element_located((By.CLASS_NAME, "card__title-link"))
-)"""
-    
-    
-    
-    
-    """elem = soup.find_all('p', class_='classified__price')
-    bleh=elem.text
-    print(bleh)"""
+        #print(soup.prettify())
         
+       # <p class="classified__price"><span aria-hidden="true">€259,000</span> <span class="sr-only">259000€</span></p>
+       # price=soup.find('class_="classified__price")
+    for i in soup.find_all('span', class_="sr-only"):
+        print(i.text)
+        #house_price = driver.find_element_by_xpath("//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]")
+        #print(house_price.text)
         
-    for i in range(10):
-        print('===================================')
+     
+    print('===================================')
+ 
     
-    """house_price = driver.find_element_by_xpath(
-        "//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]"
-    )
+ 
     
-    print(house_price.text)
-
-driver.back()
-
-
-# house button
-
-house_buttons = driver.find_elements_by_xpath("//*[starts-with(@id, 'classified_')]")
-for house in house_buttons:
-    house.click()
-    house_price = driver.find_element_by_xpath(
-         "//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]")
-    print(house_price.text)"""
+    
+   
