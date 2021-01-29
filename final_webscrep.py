@@ -36,3 +36,40 @@ driver.execute_script("arguments[0].click();", property_button)
 
 
 ##reddit
+
+
+
+
+#New approach
+###################################################################################################
+
+
+#print(html) print html of source page(our immo page!)
+
+##clicking home search button (front page)
+
+home_button = WebDriverWait(driver, 20).until(
+    EC.presence_of_element_located((By.ID, "searchBoxSubmitButton"))
+)
+driver.execute_script("arguments[0].click();", home_button)
+
+
+property_button = WebDriverWait(driver, 20).until(
+    EC.presence_of_element_located((By.CLASS_NAME, "card__title-link"))
+)
+driver.execute_script("arguments[0].click();", property_button)
+
+
+
+###Finding price of one property with x-path
+house_price = driver.find_element_by_xpath(
+    "//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]"
+)
+
+print(house_price.text)
+
+
+
+
+
+
