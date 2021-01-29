@@ -14,5 +14,5 @@ The project is not yet finished. We still have to complete the automation of dat
     # We used 
 
 -Mac OS and Windows OS  
--Anaconda versions 1.10.1(mac version) and 4.9.2
+-Anaconda versions 1.10.1(mac version) and 4.9.2  
 -BeautifulSoup4 and Selenium libraries
