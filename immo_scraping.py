@@ -13,15 +13,6 @@ import lxml.html
 import time
 from fake_useragent import UserAgent
 
-# # codes to ignore handshake errors
-# options = webdriver.ChromeOptions()
-# options.add_argument("--ignore-certificate-errors")
-# options.add_argument("--ignore-ssl-errors")
-# driver = webdriver.Chrome(chrome_options=options)
-
-# add a header to not get kicked out
-# user_agent = UserAgent()
-# headers = {"User-Agent": str(user_agent.chrome)}
 
 # open driver
 driver = webdriver.Chrome()
@@ -31,36 +22,70 @@ driver.get("https://www.immoweb.be/en")
 
 
 # locate search button
-search_button = WebDriverWait(driver, 15).until(
+search_button = WebDriverWait(driver, 20).until(
     EC.presence_of_element_located((By.ID, "searchBoxSubmitButton"))
 )
 # click on search button
-search_button.click()
+driver.execute_script("arguments[0].click();", search_button)
 
-# # return the new page
-# current_url_immo_web = driver.current_url
+# search results per page
+# search_results = driver.find_elements_by_xpath("//*[@id='main-content']")[0].text
+# print(search_results)
+
+
+# search_results_list = []
+# for i in range(len(search_results)):
+#     search_results_list.append(i)
+
+# print(search_results_list)
+
+
+# # # return the new page
+# # current_url_immo_web = driver.current_url
 
 # house button
-house_button = WebDriverWait(driver, 13).until(
-    EC.presence_of_element_located((By.ID, "classified_9139582"))
-)
-house_button.click()
 
-driver.back()
+house_buttons = driver.find_elements_by_xpath("//*[starts-with(@id, 'classified_')]")
 
-# get the html of the page
-# request_immo_web = requests.get(current_url_immo_web, headers=headers)
-# print(current_url_immo_web, request_immo_web.status_code)
-# soup_immo_web = BeautifulSoup(request_immo_web.content, "lxml")
-# print(soup_immo_web.prettify())
+# house_price_list = []
+
+for house in house_buttons:
+    driver.execute_script("arguments[0].click();", house)
+
+    html_house = driver.page_source
+
+    soup_house = BeautifulSoup(html_house, "html.parser")
+    # print(soup_house)
+
+    print(soup_house.prettify())
+
+    for i in soup_house.find_all("span", aria_hidden_="true"):
+        print(i.text)
+
+    # for i in range(10):
+    #      print("===================================")
 
 
-"""
-would work if it was all html, so maybe on a different website
-"""
-# # get the link of each house
-# link_house = soup_immo_web.find_all("a", class_="card__title-link")
-# link_house_v1 = [str(x) for x in link_house]
-# pattern = 'href="(.*)">'
-# link_house_v2 = [re.search(pattern, x).group(1) for x in link_house_v1]
-# print(link_house_v2)
+#     house_price = WebDriverWait(driver, 20).until(
+#         EC.presence_of_element_located(
+#             (
+#                 By.XPATH,
+#                 "//*[starts_with(@id, 'lazy-loading-observer-wrapper-f9a527fa-88bb-495e-9a76-e3ea9943cb3c-classified_')]",
+#             )
+#         )
+#     )
+
+#     house_price_list.append(house_price.text)
+
+# print(house_price_list)
+
+#     house_price = driver.find_element_by_xpath(
+#         "//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]"
+#     )
+
+# print(house_price.text)
+
+# house_button = WebDriverWait(driver, 13).until(
+#     EC.presence_of_element_located((By.ID, (id_no[i])))
+
+# house_button.click()

@@ -11,42 +11,56 @@ from selenium.webdriver.common.action_chains import ActionChains
 import re
 import lxml.html
 import time
+from fake_useragent import UserAgent
 
-url_immo_web = "https://www.immoweb.be/en"
-request_immo_web = requests.get(url_immo_web)
-print(url_immo_web, request_immo_web.status_code)
+# # codes to ignore handshake errors
+# options = webdriver.ChromeOptions()
+# options.add_argument("--ignore-certificate-errors")
+# options.add_argument("--ignore-ssl-errors")
+# driver = webdriver.Chrome(chrome_options=options)
 
-with open("immoweb_html.html") as immo_web_html_file:
-    soup = BeautifulSoup(immo_web_html_file, "lxml")
+# add a header to not get kicked out
+# user_agent = UserAgent()
+# headers = {"User-Agent": str(user_agent.chrome)}
+
+# open driver
+driver = webdriver.Chrome()
+
+# go to url
+driver.get("https://www.immoweb.be/en")
 
 
-# locate sort button
-sort_button = WebDriverWait(driver, 10).until(
-    EC.presence_of_element_located((By.CLASS_NAME, "input--select__toggle-icon"))
+# locate search button
+search_button = WebDriverWait(driver, 15).until(
+    EC.presence_of_element_located((By.ID, "searchBoxSubmitButton"))
 )
-# click on locate button
-driver.execute_script("arguments[0].click();", sort_button)
+# click on search button
+search_button.click()
 
-
-# return the new page
-url_immo_web = driver.current_url
-# get the html of the page
-request_immo_web = requests.get(url_immo_web)
-print(url_immo_web, request_immo_web.status_code)
-soup_immo_web = BeautifulSoup(request_immo_web.content, "lxml")
-# get the id of each house
-house_id = soup_immo_web.find_all
-
+# # return the new page
+# current_url_immo_web = driver.current_url
 
 # house button
-house_button = WebDriverWait(driver, 15).until(
+house_button = WebDriverWait(driver, 13).until(
     EC.presence_of_element_located((By.ID, "classified_9139582"))
 )
 house_button.click()
 
-# return the new page
-current_url_immo_web = driver.current_url
+driver.back()
+
 # get the html of the page
-request_immo_web = requests.get(url_immo_web)
-print(current_url_immo_web, request_immo_web.status_code)
-soup_immo_web = BeautifulSoup(request_immo_web.content, "lxml")
+# request_immo_web = requests.get(current_url_immo_web, headers=headers)
+# print(current_url_immo_web, request_immo_web.status_code)
+# soup_immo_web = BeautifulSoup(request_immo_web.content, "lxml")
+# print(soup_immo_web.prettify())
+
+
+"""
+would work if it was all html, so maybe on a different website
+"""
+# # get the link of each house
+# link_house = soup_immo_web.find_all("a", class_="card__title-link")
+# link_house_v1 = [str(x) for x in link_house]
+# pattern = 'href="(.*)">'
+# link_house_v2 = [re.search(pattern, x).group(1) for x in link_house_v1]
+# print(link_house_v2)

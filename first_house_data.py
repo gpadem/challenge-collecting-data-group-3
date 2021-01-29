@@ -40,14 +40,23 @@ search_button.click()
 # return the new page
 current_url_immo_web = driver.current_url
 
-# house button
-house_button = WebDriverWait(driver, 15).until(
-    EC.presence_of_element_located((By.XPATH, "classified_9139582"))
-)
-house_button.click()
+house_buttons = driver.find_elements_by_xpath("//*[starts-with(@id, 'classified_')]")
+
+# house_price_list = []
+
+
+house_buttons[0].click()
 
 house_price = driver.find_element_by_xpath(
     "//*[@id='classified-header']/div/div/div[1]/div/div[2]/p/span[2]"
 )
 
 print(house_price.text)
+
+
+# # house button
+# house_button = WebDriverWait(driver, 15).until(
+#     EC.presence_of_element_located((By.XPATH, "classified_9139582")))
+
+
+# print(house_price.text)
