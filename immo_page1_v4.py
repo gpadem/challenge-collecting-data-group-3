@@ -14,7 +14,7 @@ import json
 
 
 ##Launching driver & immo website
-PATH = "/usr/local/bin/chromedriver"
+PATH = "/usr/bin/chromedriver"
 driver = webdriver.Chrome(PATH)
 driver.get("https://www.immoweb.be/en")
 
